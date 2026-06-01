@@ -6,4 +6,5 @@ Pillow
 SpeechRecognition
 python-dotenv
 gradio-client
-
+pytest
+httpx

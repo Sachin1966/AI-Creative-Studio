@@ -1,0 +1,9 @@
+fastapi
+uvicorn[standard]
+python-multipart
+requests
+Pillow
+SpeechRecognition
+python-dotenv
+gradio-client
+

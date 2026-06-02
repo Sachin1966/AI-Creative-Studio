@@ -395,6 +395,88 @@ async def transcribe(file: UploadFile = File(...)):
             os.remove(tmp_path)
 
 
+@app.post("/api/talking-avatar")
+async def talking_avatar(
+    image: UploadFile = File(...),
+    audio: UploadFile = File(...),
+    preprocess: str = Query("crop"),
+    still_mode: bool = Query(True),
+    use_enhancer: bool = Query(False),
+    custom_endpoint: str = Query("")
+):
+    image_bytes = await image.read()
+    audio_bytes = await audio.read()
+
+    img_tmp_path = None
+    aud_tmp_path = None
+
+    try:
+        # Save source image to temp file
+        img_suffix = os.path.splitext(image.filename or "image.jpg")[1] or ".jpg"
+        with tempfile.NamedTemporaryFile(suffix=img_suffix, delete=False) as img_tmp:
+            img_tmp.write(image_bytes)
+            img_tmp_path = img_tmp.name
+
+        # Save driving audio to temp file
+        aud_suffix = os.path.splitext(audio.filename or "audio.wav")[1] or ".wav"
+        with tempfile.NamedTemporaryFile(suffix=aud_suffix, delete=False) as aud_tmp:
+            aud_tmp.write(audio_bytes)
+            aud_tmp_path = aud_tmp.name
+
+        # Select target client
+        endpoint = custom_endpoint.strip() if custom_endpoint.strip() else "John6666/SadTalker"
+        client = Client(endpoint)
+
+        # Call the SadTalker space
+        result = client.predict(
+            source_image=handle_file(img_tmp_path),
+            driven_audio=handle_file(aud_tmp_path),
+            preprocess=preprocess,
+            still_mode=still_mode,
+            use_enhancer=use_enhancer,
+            batch_size=1,
+            size="256",
+            pose_style=0,
+            facerender="facevid2vid",
+            exp_scale=1.0,
+            use_ref_video=False,
+            ref_video=None,
+            ref_info="pose",
+            use_idle_mode=False,
+            length_of_audio=5.0,
+            use_blink=True,
+            api_name="/test"
+        )
+
+        video_path = None
+        if isinstance(result, dict) and "video" in result:
+            video_path = result["video"]
+        elif isinstance(result, (list, tuple)) and len(result) > 0:
+            video_path = result[0]
+        else:
+            video_path = str(result)
+
+        if not video_path or not os.path.exists(video_path):
+            raise Exception("SadTalker engine failed to return a valid video path.")
+
+        with open(video_path, "rb") as video_file:
+            video_b64 = base64.b64encode(video_file.read()).decode()
+
+        return {"video": video_b64}
+
+    except Exception as e:
+        raise HTTPException(500, f"Error generating talking avatar: {e}")
+
+    finally:
+        for p in [img_tmp_path, aud_tmp_path]:
+            if p and os.path.exists(p):
+                try:
+                    os.remove(p)
+                except Exception:
+                    pass
+
+
+
 @app.get("/api/prompt-templates")
 async def get_prompt_templates():
     return PROMPT_TEMPLATES

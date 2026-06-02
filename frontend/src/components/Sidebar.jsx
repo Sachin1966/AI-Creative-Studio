@@ -3,6 +3,8 @@ const NAV_ITEMS = [
   { id: 'writer',      icon: '✍️', label: 'AI Scriptwriter' },
   { id: 'voicecanvas', icon: '🎙️', label: 'Voice Canvas' },
   { id: 'bgremover',   icon: '✂️', label: 'Background Remover' },
+  { id: 'avatar',      icon: '🎭', label: 'Talking Avatar' },
+
   { id: 'audio',       icon: '🔊', label: 'Audio Suite' },
   { id: 'vision',      icon: '🖼️', label: 'Vision AI' },
   { id: 'library',     icon: '📚', label: 'Prompt Library' },

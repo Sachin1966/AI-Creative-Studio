@@ -25,12 +25,7 @@ export const generateTTS     = (payload) => request('POST', '/tts', payload);
 export const transcribeAudio = (file)    => { const fd = new FormData(); fd.append('file', file); return request('POST', '/transcribe', fd, true); };
 export const getTemplates    = ()        => request('GET', '/prompt-templates');
 export const generateText      = (payload) => request('POST', '/generate-text', payload);
-export const generateTalkingAvatar = (imageFile, audioFile, stillMode, useEnhancer, preprocess, customEndpoint) => {
-  const fd = new FormData();
-  fd.append('image', imageFile);
-  fd.append('audio', audioFile);
-  return request('POST', `/talking-avatar?preprocess=${preprocess}&still_mode=${stillMode}&use_enhancer=${useEnhancer}&custom_endpoint=${encodeURIComponent(customEndpoint)}`, fd, true);
-};
+
 
 
 

@@ -31,7 +31,6 @@ Context/
             ├── CreativeWriter.jsx     # Narrative generator & scriptwriting assistant
             ├── VoiceCanvas.jsx        # Web Speech API voice-to-image canvas
             ├── BackgroundRemover.jsx  # Client-side WASM background remover
-            ├── TalkingAvatar.jsx      # SadTalker speech-driven talking avatar animator
             ├── AudioSuite.jsx         # Speech synthesis & transcription panel
             ├── VisionAI.jsx           # BLIP Image Captioner & prompt extractor
             ├── PromptLibrary.jsx      # Curated templates catalog
@@ -95,14 +94,7 @@ Extract foreground subjects and create transparent `.png` assets:
 - Process runs **locally in the browser** using WebAssembly, showing a detailed step-by-step progress percentage indicator.
 - Support for uploading local files or picking assets directly from the **Studio Gallery** for quick editing.
 
-### 5. 🎭 AI Talking Avatar (`TalkingAvatar.jsx`)
-Animate portrait photos into speaking video sequences using SadTalker:
-- **Gradio API Connection**: Connects to active cloud models or custom tunnels.
-- **Custom Colab Tunnel Support**: Allows pasting private Google Colab share links (e.g. `https://xxxx.gradio.live`) to bypass local compute limitations and Hugging Face DNS blocking.
-- **Configurable Parameters**: Customize Preprocessing (Crop, Resize, Full), toggle Still Mode (stabilizes head movements), and GFPGAN face enhancer.
-- **Flexible Inputs**: Upload files locally or click to load portrait images directly from your **Studio Gallery**.
-
-### 6. 🔊 Audio Suite (`AudioSuite.jsx`)
+### 5. 🔊 Audio Suite (`AudioSuite.jsx`)
 A powerful audio utility split into two major tracks:
 - **Speech Synthesis (TTS) & Real-Time Mixer**:
   - Convert text to voice via **Google Translate TTS** (multilingual translations to Tamil, Hindi, Spanish, French, Japanese, Korean) or **Pollinations AI Voices** (alloy, echo, onyx, etc.).
@@ -112,18 +104,18 @@ A powerful audio utility split into two major tracks:
   - Drag and drop `.wav` audio files.
   - Backend transcribes speech back to raw text with custom transcription export (`.txt`).
 
-### 7. 🖼️ Vision AI (`VisionAI.jsx`)
+### 6. 🖼️ Vision AI (`VisionAI.jsx`)
 Reverse-engineer prompts from existing images:
 - Uses BLIP (Bootstrapping Language Image Pre-training) models.
 - Upload an image to analyze its contents and generate a highly detailed prompt description.
 - Automatically maps the description back to the **Image Generator** workspace with a single click.
 
-### 8. 📚 Prompt Library (`PromptLibrary.jsx`)
+### 7. 📚 Prompt Library (`PromptLibrary.jsx`)
 A curated database of 48+ highly optimized, categorized prompts to inspire creative generations:
 - Categories include: *Architecture & Cities*, *Nature & Landscapes*, *Characters & Portraits*, *Fantasy & Mythology*, *Sci-Fi & Futurism*, and *Art Styles*.
 
-### 9. 🗂️ My Gallery (`Gallery.jsx`)
-- Aggregates all images generated via the Image Generator, Background Remover, Voice Canvas, and Talking Avatar.
+### 8. 🗂️ My Gallery (`Gallery.jsx`)
+- Aggregates all images generated via the Image Generator, Background Remover, and Voice Canvas.
 - Includes dynamic counts in the sidebar.
 - Export options: Save single images, export your entire collection as a **ZIP file** (via `jszip` and `file-saver`), or clear the local database.
 

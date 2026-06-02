@@ -64,21 +64,5 @@ def test_generate_image_pollinations():
     assert len(response.json()["images"]) > 0
     assert "image" in response.json()["images"][0]
 
-from unittest.mock import patch, MagicMock
 
-@patch("main.Client")
-def test_talking_avatar(mock_client_class):
-    mock_client = MagicMock()
-    # We use the existing 'test_video.jpg' in the root workspace to mock a generated video path
-    mock_client.predict.return_value = {"video": "test_video.jpg"}
-    mock_client_class.return_value = mock_client
-
-    files = {
-        "image": ("image.jpg", b"fake image", "image/jpeg"),
-        "audio": ("audio.wav", b"fake audio", "audio/wav")
-    }
-    response = client.post("/api/talking-avatar?preprocess=crop&still_mode=true&use_enhancer=false", files=files)
-    assert response.status_code == 200
-    assert "video" in response.json()
-    assert len(response.json()["video"]) > 0
 

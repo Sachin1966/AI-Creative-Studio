@@ -8,7 +8,6 @@ import Gallery from './components/Gallery';
 import CreativeWriter from './components/CreativeWriter';
 import BackgroundRemover from './components/BackgroundRemover';
 import VoiceCanvas from './components/VoiceCanvas';
-import TalkingAvatar from './components/TalkingAvatar';
 
 
 export default function App() {
@@ -42,7 +41,7 @@ export default function App() {
     writer:     <CreativeWriter goToImageTab={goToImageTab} />,
     voicecanvas:<VoiceCanvas addToGallery={addToGallery} />,
     bgremover:  <BackgroundRemover gallery={gallery} addToGallery={addToGallery} />,
-    avatar:     <TalkingAvatar gallery={gallery} />,
+
     vision:     <VisionAI goToImageTab={goToImageTab} />,
     library:    <PromptLibrary goToImageTab={goToImageTab} />,
     gallery:    <Gallery gallery={gallery} setGallery={setGallery} />,
